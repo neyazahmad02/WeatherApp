@@ -1,0 +1,112 @@
+
+<html>
+<head>
+    <style>
+      .container{
+        height: 400px;
+        width: 400px;
+        background-image: url(weather.avif);
+        margin-top: 150px;
+        margin-left: 550px;
+        border-radius: 10px;
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: repeat(2,1fr);
+        place-content: center;
+
+        
+      }
+        .btn{
+           
+            color: white; font-size:20px;
+            background-color: blue;
+        
+            font-weight: 10px;
+           
+            min-width: 100px;
+            height: 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px 1px darkblue ;
+            transition: 0.5s;
+            margin-top: 10px;
+            margin-left: 150px;
+            
+         
+        }
+        .btn:active{
+           
+            transform: translateX(4px) translateY(4px);
+            box-shadow: 0px 0px white;
+        }
+      
+        .city-input{
+            width:200px;
+            height: 30px;
+            border-radius: 10px;
+            font-size: 15px;
+            padding-left: 10px;
+            background-color: rgba(255, 255, 255, 0.44);
+            margin-top: 20px;
+            margin-left: 5px;
+            border: none;
+           
+            font-weight: bold;
+        }
+         ::placeholder{
+          color: yellow;
+         }
+        #display{
+
+          height: 30px;
+          width: 150px;
+          border-radius: 10px;
+          background-color: rgba(255, 255, 255, 0.448);
+          margin-top: 20px;
+           margin-left: 5px;
+           margin-right: 10px;
+          display: flex;
+          padding-left: 10px;
+          align-items: center;
+          font-weight: bold;
+          border: 2px solid rgb(11, 1, 1);
+        }
+        .btndiv{
+          grid-column-start: 1;
+          grid-column-end: 3;
+          border: 1px solid rgb(27, 3, 3);
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+    
+    <input id="city" type= "text" placeholder="Enter city name" class="city-input"/> 
+    <div id="display"><br/><span style="font-size: 20px; color:yellow" id="result"> </span></div>
+    <div class="divbtn"> <button id="friend" onclick="Click();" class="btn">Get city</button></div>
+    
+    
+  
+
+</div>
+
+  <script>
+    function Click(){  
+      apikey = "f6b0a67e551214c0694970fb2ee9dfd1"
+      city =document.getElementById("city").value
+      //fetch data from API
+      apiurl =` https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}`
+      fetch(apiurl).then(function(data){
+        return data.json()
+      }).then(function(finalData){
+        temp=Math.round(finalData.main.temp-273.15)
+        document.getElementById("result").innerText= `${temp}*C`;
+      })
+      
+
+    }
+  </script>
+</body>
+
+</html>
